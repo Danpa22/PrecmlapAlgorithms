@@ -1,4 +1,4 @@
-package com.example.elgenesis
+/*package com.example.elgenesis
 
 import javafx.fxml.FXML
 import javafx.scene.control.Label
@@ -124,4 +124,4 @@ class HelloController {
         println("$risk_finale")
 
     }
-}
+}*/

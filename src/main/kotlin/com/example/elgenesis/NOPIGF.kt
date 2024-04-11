@@ -40,7 +40,7 @@ class HelloController {
         val ipUterineL = 1.6
         val pigf = 20
 
-        var esperadoLn_pigf = (PIGF1+PIGF2*age+PIGF3 *lcc+(PIGF4)*imc)
+        /*var esperadoLn_pigf = (PIGF1+PIGF2*age+PIGF3 *lcc+(PIGF4)*imc)
         if (conceptionSpontaneous)
             esperadoLn_pigf += PIGF5
         if(primigestationParity)
@@ -61,7 +61,7 @@ class HelloController {
         val logNaturalPigf = 0
         var logNaturalMomPigf = logNaturalPigf-esperadoLn_pigf
         val momPigf = E.pow(logNaturalMomPigf)
-        welcomeText.text = "$momPigf"
+        welcomeText.text = "$momPigf"*/
 
         var esperadoLn_aut = (AUT1+AUT2*age+AUT3 *lcc)
         if (hypertension)
@@ -99,7 +99,7 @@ class HelloController {
 
         welcomeText.text = "$momPam"
 
-        var esperadoLn_pe37 = (PE37_1+PE37_2*age+PE37_3*imc+PE37_11*momPigf+PE37_12*momAut+PE37_13*momPam)
+        /*var esperadoLn_pe37 = (PE37_1+PE37_2*age+PE37_3*imc+PE37_11*momPigf+PE37_12*momAut+PE37_13*momPam)
         if (primigestationParity)
             esperadoLn_pe37 += PE37_4
         if(syndromeAntiphospholipid)
@@ -113,15 +113,42 @@ class HelloController {
         if (preeclampsiaPreviousPregnancy)
             esperadoLn_pe37 += PE37_9
         if(motherOfPatientWithPre)
-            esperadoLn_pe37 += (PE37_10)
+            esperadoLn_pe37 += (PE37_10)*/
+
+        var esperadoLn_no_pigf = (NO_PIGF1+NO_PIGF2*age+(NO_PIGF3)*imc+ NO_PIGF10*momAut+ NO_PIGF11*momPam)
+        if (primigestationParity)
+            esperadoLn_no_pigf += NO_PIGF4
+        if(syndromeAntiphospholipid)
+            esperadoLn_no_pigf += (NO_PIGF5)
+        if(drugs)
+            esperadoLn_no_pigf += (NO_PIGF6)
+        if(hypertension)
+            esperadoLn_no_pigf += (NO_PIGF7)
+        if(motherOfPatientWithPre)
+            esperadoLn_no_pigf += (NO_PIGF8)
+        if(hypothyroidism)
+            esperadoLn_no_pigf += (NO_PIGF9)
+        var noPigf_noIp_esperadoPigf = E.pow(esperadoLn_no_pigf)
+        val logNaturalPigf = ln(pigf.toDouble())
+        var logNaturalMomPigf = logNaturalPigf-esperadoLn_no_pigf
+        val momPigf = E.pow(logNaturalMomPigf)
+        welcomeText.text = "$momPigf"
 
 
-        val esperadoPe37 = E.pow(esperadoLn_pe37)
+        println("$esperadoLn_no_pigf")
+        println("$noPigf_noIp_esperadoPigf")
+        val risk = (noPigf_noIp_esperadoPigf/(1+noPigf_noIp_esperadoPigf))
+        val risk_finale = (1/risk).roundToInt()
+        println("$risk")
+        println("$risk_finale")
+
+
+        /*val esperadoPe37 = E.pow(esperadoLn_pe37)
         println("$esperadoPe37")
         val risk = (esperadoPe37/(1+esperadoPe37))
         val risk_finale = (1/risk).roundToInt()
         println("$risk")
-        println("$risk_finale")
+        println("$risk_finale")*/
 
     }
 }
